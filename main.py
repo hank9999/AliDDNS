@@ -5,11 +5,19 @@ from aliyunsdkalidns.request.v20150109.DescribeDomainRecordsRequest import Descr
 import json, sys, requests
 import chardet
 
+config_file = ''
+
+try:
+    config_file = sys.argv[1]
+except Exception:
+    print('没有传入配置文件')
+    sys.exit()
+
 def read_config():
     try:
-        with open('config.json', 'rb') as file:
+        with open(config_file, 'rb') as file:
             encoding = chardet.detect(file.read())['encoding']
-        config = json.load(open("config.json", encoding=encoding))
+        config = json.load(open(config_file, encoding=encoding))
         return config
     except Exception:
         print("找不到配置文件")
