@@ -63,7 +63,6 @@ def get_domain_ip(domainname, rrkeyworld, _type):
             print('\t记录值\t: ' + str(datas['Value']))
             print('\tTTL\t: ' + str(datas['TTL']))
             print('\tStatus\t: ' + str(datas['Status']))
-            print('\t解析Id\t: ' + str(datas['RecordId']))
             return str(datas['Value']), str(datas['RR']), str(datas['RecordId']), str(datas['Type'])
         else:
             print('出错了QAQ, 请将内容截图给开发人员')
@@ -85,7 +84,6 @@ def update_ip(rr, record_id, _type, value):
         try:
             source_data = str(response, encoding='utf-8')
             datas = json.loads(source_data)['RecordId']
-            print('RecordId: ' + datas)
             print('更新成功')
         except Exception as e:
             print('更新失败')
