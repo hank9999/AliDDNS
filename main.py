@@ -23,6 +23,17 @@ def read_config():
         print("找不到配置文件")
         sys.exit()
 
+def check_config(config_data):
+    if config_data['aliddns']['domainname'] == '':
+        print('未配置域名')
+        sys.exit()
+    elif config_data['aliddns']['rrkeyworld'] == '':
+        print('没有配置域名前缀')
+        sys.exit()
+    elif config_data['aliddns']['_type'] != 'A':
+        print('目前仅支持A记录')
+        sys.exit()
+
 def get_now_ip():
     print('获取当前本机IP中...')
     try:
@@ -47,7 +58,6 @@ def get_domain_ip(domainname, rrkeyworld, _type):
             print('请求数据成功')
         except Exception as e:
             print('请求数据失败')
-            print('出错了QAQ, 请将内容截图给开发人员')
             print(e)
             sys.exit()
         try:
@@ -65,10 +75,10 @@ def get_domain_ip(domainname, rrkeyworld, _type):
             print('\tStatus\t: ' + str(datas['Status']))
             return str(datas['Value']), str(datas['RR']), str(datas['RecordId']), str(datas['Type'])
         else:
-            print('出错了QAQ, 请将内容截图给开发人员')
+            print('请求数据失败')
             print(source_data)
     except Exception as e:
-        print('出错了QAQ, 请将内容截图给开发人员')
+        print('请求数据失败')
         print(e)
 
 def update_ip(rr, record_id, _type, value):
@@ -87,15 +97,15 @@ def update_ip(rr, record_id, _type, value):
             print('更新成功')
         except Exception as e:
             print('更新失败')
-            print('出错了QAQ, 请将内容截图给开发人员')
             print(e)
             sys.exit()
     except Exception as e:
-        print('出错了QAQ, 请将内容截图给开发人员')
+        print('更新失败')
         print(e)
 
 if __name__ == '__main__':
     config = read_config()
+    check_config(config)
     client = AcsClient(config['accessKeyId'], config['accessSecret'], 'cn-hangzhou')
     domain_ip, rr, record_id, _type = get_domain_ip(config['aliddns']['domainname'], config['aliddns']['rrkeyworld'], config['aliddns']['_type'])
     now_ip = get_now_ip()

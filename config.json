@@ -4,6 +4,6 @@
     "aliddns": {
         "domainname": "",
         "rrkeyworld": "",
-        "_type": ""
+        "_type": "A"
     }
 }
