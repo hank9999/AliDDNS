@@ -54,3 +54,5 @@ python3 main.py config.json    // config.json为配置文件 可以更改
 域名解析记录值与当前本机IP不一致, 正在更改
 更新成功
 ```
+## 开源协议
+MIT License  
